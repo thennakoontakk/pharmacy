@@ -1,0 +1,27 @@
+/* Overlay and card */
+.auth-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+.auth-card { background: #ffffff; width: 420px; max-width: 95vw; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); padding: 24px; position: relative; }
+.auth-close { position: absolute; right: 12px; top: 10px; background: transparent; border: none; font-size: 22px; cursor: pointer; color: #111; }
+
+.auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.auth-brand img { width: 46px; height: 46px; object-fit: contain; }
+.auth-title { margin: 8px 0 12px; color: #111; font-size: 20px; font-weight: 700; }
+
+.auth-form { display: flex; flex-direction: column; gap: 10px; }
+.auth-form label { font-size: 13px; color: #222; }
+.auth-form input { background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; font-size: 14px; color: #111; }
+.auth-form input::placeholder { color: #64748b; }
+.auth-row { display: flex; align-items: center; justify-content: space-between; }
+.checkbox { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #111; }
+.auth-link { color: #0b7f53; text-decoration: none; font-size: 13px; }
+.auth-link:hover { text-decoration: underline; }
+
+.primary-btn { width: 100%; background: #2aa84a; color: #fff; border: none; border-radius: 999px; height: 40px; font-weight: 700; cursor: pointer; }
+.primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.auth-footer { margin-top: 8px; font-size: 13px; color: #333; display: flex; gap: 6px; }
+.link-btn { background: none; border: none; color: #0b7f53; cursor: pointer; padding: 0; font-size: 13px; }
+.link-btn:hover { text-decoration: underline; }
+
+/* Error message */
+.auth-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; padding: 8px 10px; border-radius: 8px; font-size: 13px; margin-bottom: 10px; }

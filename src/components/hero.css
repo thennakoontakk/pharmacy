@@ -1,0 +1,45 @@
+/* Hero styles */
+.hero {
+  position: relative;
+  min-height: 100vh; /* make hero fit to full screen height */
+  display: grid;
+  align-items: center;
+  color: #e6e6e6;
+  overflow: hidden;
+}
+
+/* Background images with heavy blur */
+.hero__bg { position: absolute; inset: 0; z-index: 0; }
+.hero__bg-img { position: absolute; width: 100%; height: 100%; object-fit: cover; filter: blur(15px); transform: scale(1.08); opacity: 0; transition: opacity 1s ease; }
+.hero__bg-img--one { animation: showFirst 12s infinite; }
+.hero__bg-img--two { animation: showSecond 12s infinite; }
+@keyframes showFirst { 0%{opacity:1} 40%{opacity:1} 50%{opacity:0} 100%{opacity:0} }
+@keyframes showSecond { 0%{opacity:0} 40%{opacity:0} 50%{opacity:1} 100%{opacity:1} }
+
+.hero__overlay { position: absolute; inset: 0; background: radial-gradient(1200px circle at 20% 40%, rgba(0,255,120,0.12), transparent 50%), linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)); }
+
+/* Content */
+.hero__content { position: relative; z-index: 1; padding: 120px 24px 48px; max-width: 1100px; margin: 0 auto; }
+.hero__top { display: flex; align-items: center; gap: 24px; }
+.hero__logo { width: 72px; height: 72px; object-fit: contain; }
+.hero__brand-outline { font-size: 72px; letter-spacing: 6px; font-weight: 800; color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.6); text-stroke: 2px rgba(255,255,255,0.6); }
+
+.hero__grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 40px; margin-top: 20px; }
+.hero__title { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.hero__desc { font-size: 14px; line-height: 1.7; max-width: 560px; opacity: 0.92; }
+.hero__cta { margin-top: 18px; display: flex; gap: 12px; }
+.hero__btn { background: #19e27d; color: #0b1a14; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600; }
+.hero__link { color: #e6e6e6; text-decoration: none; opacity: 0.9; }
+.hero__link:hover { opacity: 1; }
+
+.hero__right { position: relative; height: 240px; }
+.hero__card { position: absolute; width: 180px; height: 220px; border-radius: 16px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.12); }
+.hero__card--primary { right: 40px; top: 20px; background: rgba(30, 220, 120, 0.15); }
+.hero__card--secondary { right: 0; bottom: 0; background: rgba(255,255,255,0.15); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero__content { padding-top: 100px; }
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__right { height: 160px; margin-top: 24px; }
+}
