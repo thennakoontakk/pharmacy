@@ -70,7 +70,7 @@ export default function Footer() {
           <span> | </span>
           <a href="#" className="footer-link">Privacy Policy</a>
           <span> | </span>
-           <a href="https://www.getsoftora.com/" className="footer-link">POWERD BY SOFTORA</a>
+           <a href="https://www.getsoftora.com/" className="footer-link">POWERED BY SOFTORA</a>
         </div>
       </div>
     </footer>

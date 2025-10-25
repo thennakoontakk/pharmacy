@@ -14,7 +14,7 @@ export default function AdminPosters() {
   const fetchPosters = async () => {
     try {
       const token = localStorage.getItem('admin_token')
-      const response = await fetch('http://localhost:3001/api/posters', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posters`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -54,7 +54,7 @@ export default function AdminPosters() {
 
     try {
       const token = localStorage.getItem('admin_token')
-      const response = await fetch('http://localhost:3001/api/posters/upload', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posters/upload`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -84,7 +84,7 @@ export default function AdminPosters() {
     if (confirm('Are you sure you want to delete this poster?')) {
       try {
         const token = localStorage.getItem('admin_token')
-        const response = await fetch(`http://localhost:3001/api/posters/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/posters/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -150,7 +150,7 @@ export default function AdminPosters() {
             posters.map((poster) => (
               <div key={poster.id} className="poster-item">
                 <img 
-                  src={`http://localhost:3001${poster.image_path}`} 
+                  src={poster.image_path ? new URL(poster.image_path, (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''}
                   alt={poster.name}
                   className="poster-thumbnail"
                 />

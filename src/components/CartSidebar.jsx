@@ -18,7 +18,7 @@ export default function CartSidebar({ isOpen, items = [], onClose, onUpdateQty, 
           )}
           {items.map((it) => (
             <div key={it.id} className="cart-item">
-              <img className="cart-item-img" src={it.image?.includes('http') ? it.image : `http://localhost:3001${it.image || '/uploads/default.jpg'}`} alt={it.title} />
+              <img className="cart-item-img" src={it.image?.includes('http') ? it.image : new URL(it.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()} alt={it.title} />
               <div className="cart-item-info">
                 <div className="cart-item-title">{it.title}</div>
                 <div className="cart-item-price">Rs {Number(it.price).toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>

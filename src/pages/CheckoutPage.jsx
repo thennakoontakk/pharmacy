@@ -20,7 +20,7 @@ export default function CheckoutPage() {
   useEffect(() => { (async () => {
     const token = localStorage.getItem('user_token')
     if (!token) { setItems([]); return }
-    const res = await fetch('http://localhost:3001/api/cart', { headers: { Authorization: `Bearer ${token}` } })
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart`, { headers: { Authorization: `Bearer ${token}` } })
     const data = await res.json()
     setItems(Array.isArray(data) ? data : [])
   })() }, [])
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
             <div className="summary-title">Order Summary</div>
             {items.map(it => (
               <div key={it.id} className="summary-item">
-                <img className="sum-img" src={it.image?.includes('http') ? it.image : `http://localhost:3001${it.image || '/uploads/default.jpg'}`} alt={it.title} />
+                <img className="sum-img" src={it.image?.includes('http') ? it.image : new URL(it.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()} alt={it.title} />
                 <div className="sum-info">
                   <div className="sum-title">{it.title}</div>
                   <div className="sum-meta">Qty: {it.quantity}</div>

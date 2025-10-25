@@ -16,7 +16,7 @@ export default function AdminBlogs() {
   const fetchBlogs = async () => {
     try {
       const token = localStorage.getItem('admin_token')
-      const res = await fetch('http://localhost:3001/api/blogs', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/blogs`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.ok) {
@@ -61,7 +61,7 @@ export default function AdminBlogs() {
       // Step 1: upload image to server
       const formData = new FormData()
       formData.append('images', selectedFile)
-      const uploadRes = await fetch('http://localhost:3001/api/upload', {
+      const uploadRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/upload`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData
@@ -80,7 +80,7 @@ export default function AdminBlogs() {
       }
 
       // Step 2: create blog record
-      const res = await fetch('http://localhost:3001/api/blogs', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/blogs`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -114,7 +114,7 @@ export default function AdminBlogs() {
     if (!confirm('Delete this blog?')) return
     try {
       const token = localStorage.getItem('admin_token')
-      const res = await fetch(`http://localhost:3001/api/blogs/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/blogs/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -181,7 +181,7 @@ export default function AdminBlogs() {
                 <tr key={blog.id}>
                   <td>
                     {blog.thumbnail_path ? (
-                      <img src={`http://localhost:3001${blog.thumbnail_path}`} alt={blog.title} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6 }} />
+                      <img src={blog.thumbnail_path ? new URL(blog.thumbnail_path, (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''} alt={blog.title} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6 }} />
                     ) : '—'}
                   </td>
                   <td>{blog.title}</td>

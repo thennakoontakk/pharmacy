@@ -48,7 +48,7 @@ function App() {
     const token = localStorage.getItem('user_token')
     if (!token) return
     try {
-      const res = await fetch('http://localhost:3001/api/cart', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       const data = await res.json()
@@ -78,7 +78,7 @@ function App() {
     }
     const token = localStorage.getItem('user_token')
     try {
-      await fetch('http://localhost:3001/api/cart', {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ function App() {
   const updateCartQty = async (itemId, quantity) => {
     const token = localStorage.getItem('user_token')
     try {
-      await fetch(`http://localhost:3001/api/cart/${itemId}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart/${itemId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ function App() {
   const removeCartItem = async (itemId) => {
     const token = localStorage.getItem('user_token')
     try {
-      await fetch(`http://localhost:3001/api/cart/${itemId}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart/${itemId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       })

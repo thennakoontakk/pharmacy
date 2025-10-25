@@ -8,9 +8,9 @@ export default function ProductsSection({ onAddToCart }) {
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/products').then(r => r.json()).then(data => setProducts(data))
-    fetch('http://localhost:3001/api/public/posters').then(r => r.json()).then(data => setPosters(data))
-    fetch('http://localhost:3001/api/public/blogs').then(r => r.json()).then(data => setBlogs(Array.isArray(data) ? data : []))
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/products`).then(r => r.json()).then(data => setProducts(data))
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/public/posters`).then(r => r.json()).then(data => setPosters(data))
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/public/blogs`).then(r => r.json()).then(data => setBlogs(Array.isArray(data) ? data : []))
   }, [])
 
   const formatPrice = (v) => `Rs ${Number(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
@@ -29,7 +29,7 @@ export default function ProductsSection({ onAddToCart }) {
               title={p.title}
               price={formatPrice(p.price)}
               oldPrice={p.oldPrice ? formatPrice(p.oldPrice) : undefined}
-              image={p.image?.includes('http') ? p.image : `http://localhost:3001${p.image || '/uploads/default.jpg'}`}
+              image={p.image?.includes('http') ? p.image : new URL(p.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()}
               discountBadge={p.discountBadge}
               onAddToCart={() => onAddToCart && onAddToCart(p)}
             />
@@ -51,7 +51,7 @@ export default function ProductsSection({ onAddToCart }) {
                     title={p.title}
                     price={formatPrice(p.price)}
                     oldPrice={p.oldPrice ? formatPrice(p.oldPrice) : undefined}
-                    image={p.image?.includes('http') ? p.image : `http://localhost:3001${p.image || '/uploads/default.jpg'}`}
+                    image={p.image?.includes('http') ? p.image : new URL(p.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()}
                     discountBadge={p.discountBadge}
                     onAddToCart={() => onAddToCart && onAddToCart(p)}
                   />
@@ -64,7 +64,7 @@ export default function ProductsSection({ onAddToCart }) {
                     title={p.title}
                     price={formatPrice(p.price)}
                     oldPrice={p.oldPrice ? formatPrice(p.oldPrice) : undefined}
-                    image={p.image?.includes('http') ? p.image : `http://localhost:3001${p.image || '/uploads/default.jpg'}`}
+                    image={p.image?.includes('http') ? p.image : new URL(p.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()}
                     discountBadge={p.discountBadge}
                     onAddToCart={() => onAddToCart && onAddToCart(p)}
                   />
@@ -73,7 +73,7 @@ export default function ProductsSection({ onAddToCart }) {
             </div>
             {posters.length > 0 && (
               <div className="poster-sidebar">
-                <img src={`http://localhost:3001${posters[0]?.image_path}`} alt={posters[0]?.name} className="poster-image" />
+                <img src={posters[0]?.image_path ? new URL(posters[0].image_path, (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''} alt={posters[0]?.name} className="poster-image" />
               </div>
             )}
           </div>
@@ -94,7 +94,7 @@ export default function ProductsSection({ onAddToCart }) {
                     title={p.title}
                     price={formatPrice(p.price)}
                     oldPrice={p.oldPrice ? formatPrice(p.oldPrice) : undefined}
-                    image={p.image?.includes('http') ? p.image : `http://localhost:3001${p.image || '/uploads/default.jpg'}`}
+                    image={p.image?.includes('http') ? p.image : new URL(p.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()}
                     discountBadge={p.discountBadge}
                     onAddToCart={() => onAddToCart && onAddToCart(p)}
                   />
@@ -107,7 +107,7 @@ export default function ProductsSection({ onAddToCart }) {
                     title={p.title}
                     price={formatPrice(p.price)}
                     oldPrice={p.oldPrice ? formatPrice(p.oldPrice) : undefined}
-                    image={p.image?.includes('http') ? p.image : `http://localhost:3001${p.image || '/uploads/default.jpg'}`}
+                    image={p.image?.includes('http') ? p.image : new URL(p.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()}
                     discountBadge={p.discountBadge}
                     onAddToCart={() => onAddToCart && onAddToCart(p)}
                   />
@@ -116,7 +116,7 @@ export default function ProductsSection({ onAddToCart }) {
             </div>
             {posters.length > 1 && (
               <div className="poster-sidebar">
-                <img src={`http://localhost:3001${posters[1]?.image_path}`} alt={posters[1]?.name} className="poster-image" />
+                <img src={posters[1]?.image_path ? new URL(posters[1].image_path, (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''} alt={posters[1]?.name} className="poster-image" />
               </div>
             )}
           </div>
@@ -210,7 +210,7 @@ export default function ProductsSection({ onAddToCart }) {
             {blogs.map((b) => (
               <div key={b.id} className="blog-card">
                 {b.thumbnail_path && (
-                  <img className="blog-thumb" src={`http://localhost:3001${b.thumbnail_path}`} alt={b.title} />
+                  <img className="blog-thumb" src={b.thumbnail_path ? new URL(b.thumbnail_path, (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''} alt={b.title} />
                 )}
                 <div className="blog-overlay">
                   <h3 className="blog-title">{b.title}</h3>

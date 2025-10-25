@@ -20,7 +20,7 @@ export default function CartPage() {
       return
     }
     try {
-      const res = await fetch('http://localhost:3001/api/cart', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       const data = await res.json()
@@ -39,12 +39,9 @@ export default function CartPage() {
   const updateQty = async (id, quantity) => {
     const token = localStorage.getItem('user_token')
     try {
-      await fetch(`http://localhost:3001/api/cart/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart/${id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ quantity })
       })
       await loadCart()
@@ -56,7 +53,7 @@ export default function CartPage() {
   const removeItem = async (id) => {
     const token = localStorage.getItem('user_token')
     try {
-      await fetch(`http://localhost:3001/api/cart/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/cart/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -87,7 +84,7 @@ export default function CartPage() {
 
           {items.map((it) => (
             <div key={it.id} className="cart-row">
-              <img className="cart-img" src={it.image?.includes('http') ? it.image : `http://localhost:3001${it.image || '/uploads/default.jpg'}`} alt={it.title} />
+              <img className="cart-img" src={it.image?.includes('http') ? it.image : new URL(it.image || '/uploads/default.jpg', (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString()} alt={it.title} />
               <div className="cart-info">
                 <div className="title">{it.title}</div>
                 <div className="price">Rs {Number(it.price).toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>

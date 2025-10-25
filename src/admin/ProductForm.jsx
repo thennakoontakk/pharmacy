@@ -42,7 +42,7 @@ const ImageUpload = ({ images, onImagesChange }) => {
 
     try {
       const token = localStorage.getItem('admin_token');
-      const response = await fetch('http://localhost:3001/api/upload', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/upload`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -105,7 +105,7 @@ const ImageUpload = ({ images, onImagesChange }) => {
           {images.map((image, index) => (
             <div key={index} className="image-preview-item">
               <img 
-                src={`http://localhost:3001${image}`} 
+                src={image ? new URL(image, (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''} 
                 alt={`Preview ${index + 1}`}
                 className="preview-image"
               />

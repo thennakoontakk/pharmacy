@@ -21,7 +21,7 @@ export default function AuthModal({ isOpen, mode = 'login', onClose, onSwitchMod
     setError('')
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:3001/api/users/login', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: loginEmail.trim(), password: loginPassword })
@@ -46,7 +46,7 @@ export default function AuthModal({ isOpen, mode = 'login', onClose, onSwitchMod
     setError('')
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:3001/api/users/register', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), email: signupEmail.trim(), password: signupPassword })

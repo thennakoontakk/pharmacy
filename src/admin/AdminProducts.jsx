@@ -15,7 +15,7 @@ const AdminProducts = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem('admin_token');
-      const response = await fetch('http://localhost:3001/api/products', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/products`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -44,7 +44,7 @@ const AdminProducts = () => {
 
     try {
       const token = localStorage.getItem('admin_token');
-      const response = await fetch(`http://localhost:3001/api/products/${productId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/products/${productId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -66,8 +66,8 @@ const AdminProducts = () => {
     try {
       const token = localStorage.getItem('admin_token');
       const url = editingProduct 
-        ? `http://localhost:3001/api/products/${editingProduct.id}`
-        : 'http://localhost:3001/api/products';
+        ? `${import.meta.env.VITE_API_BASE_URL}/products/${editingProduct.id}`
+        : `${import.meta.env.VITE_API_BASE_URL}/products`
       
       const method = editingProduct ? 'PUT' : 'POST';
 
@@ -107,7 +107,7 @@ const AdminProducts = () => {
         return (
           <div className="product-images">
             <img 
-              src={`http://localhost:3001${imageArray[0]}`} 
+              src={imageArray[0] ? new URL(imageArray[0], (import.meta.env.VITE_API_BASE_URL || '').replace(/\/api$/, '')).toString() : ''} 
               alt="Product" 
               className="product-thumbnail"
               style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
