@@ -28,7 +28,27 @@ export default function AuthModal({ isOpen, mode = 'login', onClose, onSwitchMod
       })
       const data = await res.json()
       if (!res.ok) {
-        setError(data?.error || 'Login failed')
+        if (res.status === 401) {
+          try {
+            const adminRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: loginEmail.trim(), password: loginPassword })
+            });
+            const adminData = await adminRes.json();
+            if (adminRes.ok) {
+              localStorage.setItem('admin_token', adminData.token);
+              window.location.href = '/admin';
+              return;
+            } else {
+              setError(adminData?.error || 'Invalid credentials');
+            }
+          } catch (adminErr) {
+            setError('Network error. Please try again.');
+          }
+        } else {
+          setError(data?.error || 'Login failed');
+        }
       } else {
         localStorage.setItem('user_token', data.token)
         onAuthSuccess?.(data.user, data.token)
